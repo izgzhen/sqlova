@@ -152,9 +152,10 @@ def is_valid_example(e):
 
 
 if __name__ == '__main__':
+    home_p = os.getenv('HOME')
     parser = ArgumentParser(formatter_class=ArgumentDefaultsHelpFormatter)
-    parser.add_argument('--din', default='/Users/wonseok/data/WikiSQL-1.1/data', help='data directory')
-    parser.add_argument('--dout', default='/Users/wonseok/data/wikisql_tok', help='output directory')
+    parser.add_argument('--din', default= home_p + '/data/WikiSQL-1.1/data', help='data directory')
+    parser.add_argument('--dout', default= home_p + '/data/wikisql_tok', help='output directory')
     args = parser.parse_args()
 
     answer_toy = not True
