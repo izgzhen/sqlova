@@ -5,6 +5,8 @@
 # Sep30, 2018
 import os, sys, argparse, re, json
 
+import matplotlib as mpl
+mpl.use("TkAgg")
 from matplotlib.pylab import *
 import torch.nn as nn
 import torch
