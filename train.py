@@ -542,7 +542,7 @@ if __name__ == '__main__':
     args = construct_hyper_param(parser)
 
     ## 2. Paths
-    path_h = '/home/wonseok'
+    path_h = os.getenv('HOME')
     path_wikisql = os.path.join(path_h, 'data', 'wikisql_tok')
     BERT_PT_PATH = path_wikisql
 
@@ -550,14 +550,14 @@ if __name__ == '__main__':
 
     ## 3. Load data
     train_data, train_table, dev_data, dev_table, train_loader, dev_loader = get_data(path_wikisql, args)
-    # test_data, test_table = load_wikisql_data(path_wikisql, mode='test', toy_model=args.toy_model, toy_size=args.toy_size, no_hs_tok=True)
-    # test_loader = torch.utils.data.DataLoader(
-    #     batch_size=args.bS,
-    #     dataset=test_data,
-    #     shuffle=False,
-    #     num_workers=4,
-    #     collate_fn=lambda x: x  # now dictionary values are not merged!
-    # )
+    test_data, test_table = load_wikisql_data(path_wikisql, mode='test', toy_model=args.toy_model, toy_size=args.toy_size, no_hs_tok=True)
+    test_loader = torch.utils.data.DataLoader(
+        batch_size=args.bS,
+        dataset=test_data,
+        shuffle=False,
+        num_workers=4,
+        collate_fn=lambda x: x  # now dictionary values are not merged!
+    )
     ## 4. Build & Load models
     model, model_bert, tokenizer, bert_config = get_models(args, BERT_PT_PATH)
 
@@ -592,8 +592,8 @@ if __name__ == '__main__':
 
         # check DEV
         with torch.no_grad():
-            acc_dev, results_dev, cnt_list = test(dev_loader,
-                                                dev_table,
+            acc_dev, results_dev, cnt_list = test(test_loader,
+                                                test_table,
                                                 model,
                                                 model_bert,
                                                 bert_config,

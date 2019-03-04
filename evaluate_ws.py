@@ -21,7 +21,7 @@ if __name__ == '__main__':
     saved_epoch = 'best'  # 30-162
 
     # Set path
-    path_h = '/home/wonseok' # change to your home folder
+    path_h = os.getenv('HOME') # change to your home folder
     path_wikisql_tok = os.path.join(path_h, 'data', 'wikisql_tok')
     path_save_analysis = '.'
 
